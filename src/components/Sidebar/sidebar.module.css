@@ -1,0 +1,73 @@
+.sidebar {
+    background-color: var(--gray-800);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.sidebar > img {
+    height: 7.2rem;
+    width: 100%;
+    object-fit: cover;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imgWrapper {
+    width: 6.4rem;
+    height: 6.4rem;
+    border: 2px solid var(--green-500);
+    padding: 0.3rem;
+    border-radius: 8px;
+    position: relative;
+    margin-top: calc(-3.4rem - 2px);
+}
+.profile img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.profile strong {
+    color: var(--gray-100);
+    margin-top: 1.6rem;
+    line-height: 1.6;
+}
+
+.profile span {
+    font-size: 1.4rem;
+    color: var(--gray-400);
+    line-height: 1.6;
+}
+
+.sidebar footer {
+    border-top: 1px solid var(--gray-600);
+    margin-top: 2.4rem;
+    padding: 2.4rem 3.2rem 3.2rem;
+}
+
+.sidebar footer a {
+    width: 100%;
+    background: transparent;
+    color: var(--green-500);
+    border: 1px solid var(--green-500);
+    text-decoration: none;
+    padding: 1rem;
+    font-weight: bold;
+    border-radius: 0.8rem;
+    transition: 0.15s;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.sidebar footer a:hover {
+    background: var(--green-500);
+    color: var(--white);
+}
