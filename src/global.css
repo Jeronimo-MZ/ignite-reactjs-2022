@@ -13,6 +13,7 @@
     --gray-700: #29292e;
     --gray-800: #202024;
     --gray-900: #121214;
+    --green-300: #00b37e;
     --green-500: #00875f;
 
     font-size: 62.5%;
@@ -31,4 +32,15 @@ button {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-size: 1.6rem;
+}
+
+a {
+    text-decoration: none;
+    color: var(--green-500);
+}
+
+a:focus,
+a:hover {
+    text-decoration: underline 2px;
+    color: var(--green-300);
 }
