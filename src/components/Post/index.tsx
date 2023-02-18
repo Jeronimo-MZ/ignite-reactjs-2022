@@ -1,3 +1,4 @@
+import { Comment } from "../Comment";
 import styles from "./post.module.css";
 export const Post = () => {
     const ONE_HOUR = 1000 * 60 * 60;
@@ -48,6 +49,11 @@ export const Post = () => {
                     <button type="submit">Publicar</button>
                 </footer>
             </form>
+            <div className={styles.commentList}>
+                <Comment />
+                <Comment />
+                <Comment />
+            </div>
         </article>
     );
 };
