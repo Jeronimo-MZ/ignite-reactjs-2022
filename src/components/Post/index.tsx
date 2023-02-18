@@ -1,46 +1,66 @@
 import { Avatar } from "../Avatar";
 import { Comment } from "../Comment";
+import { format, formatDistanceToNow } from "date-fns";
 import styles from "./post.module.css";
-export const Post = () => {
-    const ONE_HOUR = 1000 * 60 * 60;
-    const ONE_HOUR_AGO = new Date(Date.now() - ONE_HOUR);
+import ptBR from "date-fns/locale/pt-BR";
+
+type PostProps = {
+    author: {
+        avatarUrl: string;
+        role: string;
+        name: string;
+    };
+    publishedAt: Date;
+    content: Array<{
+        type: "paragraph" | "link";
+        text: string;
+    }>;
+};
+export const Post = ({ author, content, publishedAt }: PostProps) => {
+    const formattedPublishedDate = format(
+        publishedAt,
+        "d 'de' LLLL 'às' HH:mm'h' ",
+        { locale: ptBR }
+    );
+
+    const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+        locale: ptBR,
+        addSuffix: true,
+    });
     return (
         <article className={styles.postWrapper}>
             <header className={styles.header}>
                 <div className={styles.left}>
                     <Avatar
-                        src="https://github.com/jeronimo-mz.png"
-                        alt="Jerónimo Matavel"
+                        src={author.avatarUrl}
+                        alt={author.name}
                         hasBorder
                     />
                     <div>
-                        <strong>Jerónimo Matavel</strong>
-                        <span>Desenvolvedor Web</span>
+                        <strong>{author.name}</strong>
+                        <span>{author.role}</span>
                     </div>
                 </div>
                 <time
-                    dateTime={ONE_HOUR_AGO.toISOString()}
-                    title={ONE_HOUR_AGO.toLocaleString()}
+                    dateTime={publishedAt.toISOString()}
+                    title={formattedPublishedDate}
                     className={styles.right}
                 >
-                    Publicado há 1h
+                    {publishedDateRelativeToNow}
                 </time>
             </header>
             <main className={styles.content}>
-                <p>Fala galeraa 👋</p>
-                <p>
-                    Acabei de subir mais um projeto no meu portifa. É um projeto
-                    que fiz no NLW Return, evento da Rocketseat. O nome do
-                    projeto é DoctorCare 🚀
-                </p>
-                <p>
-                    👉 <a href="#">jane.design/doctorcare</a>
-                </p>
-                <p className={styles.tags}>
-                    <a href="#">#novoprojeto</a>
-                    <a href="#">#nlw</a>
-                    <a href="#">#rocketseat</a>
-                </p>
+                {content.map((content) => {
+                    if (content.type === "paragraph") {
+                        return <p key={content.text}>{content.text}</p>;
+                    }
+
+                    return (
+                        <a key={content.text} href="#">
+                            {content.text}
+                        </a>
+                    );
+                })}
             </main>
             <form className={styles.commentForm}>
                 <label htmlFor="comment">Deixe seu Comentário</label>
