@@ -1,3 +1,4 @@
+import { Avatar } from "../Avatar";
 import { Comment } from "../Comment";
 import styles from "./post.module.css";
 export const Post = () => {
@@ -7,12 +8,11 @@ export const Post = () => {
         <article className={styles.postWrapper}>
             <header className={styles.header}>
                 <div className={styles.left}>
-                    <div className={styles.imgWrapper}>
-                        <img
-                            src="https://github.com/jeronimo-mz.png"
-                            alt="Jerónimo Matavel"
-                        />
-                    </div>
+                    <Avatar
+                        src="https://github.com/jeronimo-mz.png"
+                        alt="Jerónimo Matavel"
+                        hasBorder
+                    />
                     <div>
                         <strong>Jerónimo Matavel</strong>
                         <span>Desenvolvedor Web</span>

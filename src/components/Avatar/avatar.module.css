@@ -1,0 +1,22 @@
+.imgWrapper {
+    width: 5.6rem;
+    height: 5.6rem;
+    padding: 0.3rem;
+    position: relative;
+}
+.imgWrapper img,
+.imgWrapperWithBorder img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.imgWrapperWithBorder {
+    width: 5.6rem;
+    height: 5.6rem;
+    border: 2px solid var(--green-500);
+    padding: 0.3rem;
+    border-radius: 8px;
+    position: relative;
+}
