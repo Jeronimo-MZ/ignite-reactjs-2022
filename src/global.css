@@ -49,3 +49,9 @@ a:hover {
     outline: transparent;
     box-shadow: 0 0 0 2px var(--green-500);
 }
+
+@media screen and (max-width: 768px) {
+    :root {
+        font-size: 56.25%;
+    }
+}

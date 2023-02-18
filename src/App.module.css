@@ -14,3 +14,9 @@
     flex-direction: column;
     gap: 3.2rem;
 }
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        grid-template-columns: 1fr;
+    }
+}
