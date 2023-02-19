@@ -44,7 +44,7 @@ const posts: PostType[] = [
         ],
     },
     {
-        id: 1,
+        id: 2,
         author: {
             avatarUrl: "https://github.com/maykbrito.png",
             role: "Instructor @ Rocketseat",
