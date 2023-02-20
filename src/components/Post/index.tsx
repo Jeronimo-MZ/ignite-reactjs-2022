@@ -3,7 +3,7 @@ import { Comment } from "../Comment";
 import { format, formatDistanceToNow } from "date-fns";
 import styles from "./post.module.css";
 import ptBR from "date-fns/locale/pt-BR";
-import { FormEvent, useState } from "react";
+import { FormEvent, InvalidEvent, useState } from "react";
 
 type PostProps = {
     author: {
@@ -43,6 +43,12 @@ export const Post = ({ author, content, publishedAt }: PostProps) => {
         setComments((prev) =>
             prev.filter((comment) => comment !== commentToDelete)
         );
+    };
+
+    const handleNewCommentInvalid = (
+        event: InvalidEvent<HTMLTextAreaElement>
+    ) => {
+        event.target.setCustomValidity("Campo obrigatório");
     };
 
     return (
@@ -86,10 +92,17 @@ export const Post = ({ author, content, publishedAt }: PostProps) => {
                     name="comment"
                     placeholder="Deixe um comentário"
                     value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
+                    onChange={(e) => {
+                        e.target.setCustomValidity("");
+                        setNewComment(e.target.value);
+                    }}
+                    onInvalid={handleNewCommentInvalid}
+                    required
                 />
                 <footer>
-                    <button type="submit">Publicar</button>
+                    <button type="submit" disabled={!newComment}>
+                        Publicar
+                    </button>
                 </footer>
             </form>
             <div className={styles.commentList}>
