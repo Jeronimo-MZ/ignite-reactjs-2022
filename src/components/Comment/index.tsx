@@ -3,8 +3,9 @@ import { ThumbsUp, Trash } from "phosphor-react";
 import { Avatar } from "../Avatar";
 type CommentProps = {
     content: string;
+    onDelete: () => void;
 };
-export const Comment = ({ content }: CommentProps) => {
+export const Comment = ({ content, onDelete }: CommentProps) => {
     return (
         <div className={styles.comment}>
             <Avatar
@@ -21,7 +22,7 @@ export const Comment = ({ content }: CommentProps) => {
                             </strong>
                             <time>Há cerca de 1h</time>
                         </div>
-                        <button title="apagar">
+                        <button title="apagar" onClick={onDelete}>
                             <Trash size={24} />
                         </button>
                     </header>
