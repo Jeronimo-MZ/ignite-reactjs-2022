@@ -80,7 +80,12 @@ export function Home() {
   useEffect(() => {
     if (!activeCycle) return;
     const interval = setInterval(() => {
-      setAmountSecondsPassed(differenceInSeconds(new Date(), activeCycle.start));
+      const secondsDifference = differenceInSeconds(new Date(), activeCycle.start);
+      if (secondsDifference > totalSeconds) {
+        setActiveCycleId(null);
+      } else {
+        setAmountSecondsPassed(secondsDifference);
+      }
     }, 1000);
 
     return () => {
