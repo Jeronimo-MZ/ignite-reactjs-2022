@@ -1,4 +1,4 @@
-import { HistoryContainer, HistoryList } from "./styles";
+import { HistoryContainer, HistoryList, Status } from "./styles";
 
 export function History() {
   return (
@@ -15,14 +15,30 @@ export function History() {
             </tr>
           </thead>
           <tbody>
-            {[1, 2, 3, 4, 5, 6].map(item => (
-              <tr key={item}>
-                <td>Tarefa 1</td>
-                <td>25 minutos</td>
-                <td>há 2 horas</td>
-                <td>Concluído</td>
-              </tr>
-            ))}
+            <tr>
+              <td>Tarefa 1</td>
+              <td>25 minutos</td>
+              <td>há 2 horas</td>
+              <td>
+                <Status statusColor="green">Concluído</Status>
+              </td>
+            </tr>
+            <tr>
+              <td>Tarefa 2</td>
+              <td>25 minutos</td>
+              <td>há 2 horas</td>
+              <td>
+                <Status statusColor={"yellow"}>Em andamento</Status>
+              </td>
+            </tr>
+            <tr>
+              <td>Tarefa 3</td>
+              <td>25 minutos</td>
+              <td>há 2 horas</td>
+              <td>
+                <Status statusColor={"red"}>Interrompido</Status>
+              </td>
+            </tr>
           </tbody>
         </table>
       </HistoryList>
