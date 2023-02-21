@@ -21,6 +21,6 @@ export function interruptCurrentCycleAction() {
 
 export function markCurrentCycleAsFinishedAction() {
   return {
-    type: ActionTypes.INTERRUPT_CURRENT_CYLE,
+    type: ActionTypes.MARK_CURRENT_CYCLE_AS_FINISHED,
   } as const;
 }

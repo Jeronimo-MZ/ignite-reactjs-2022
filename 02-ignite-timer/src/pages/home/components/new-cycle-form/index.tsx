@@ -10,12 +10,14 @@ type NewCycleFormProps = {
 };
 export function NewCycleForm({ formId }: NewCycleFormProps) {
   const { register, reset, handleSubmit } = useFormContext<NewCycleFormData>();
-  const { activeCycle, createNewCycle } = useCycles();
+  const { activeCycle, createNewCycle, cycles } = useCycles();
 
   const handleNewCycle: SubmitHandler<NewCycleFormData> = ({ minutesAmount, task }) => {
     createNewCycle({ minutesAmount, task });
     reset();
   };
+
+  const previousTasks = new Set(cycles.map(cycle => cycle.task));
 
   return (
     <FormContainer id={formId} onSubmit={handleSubmit(handleNewCycle)}>
@@ -27,12 +29,12 @@ export function NewCycleForm({ formId }: NewCycleFormProps) {
         placeholder="Dê um nome para o seu projeto"
         {...register("task", { required: "Campo obrigatório" })}
         disabled={!!activeCycle}
+        autoComplete="off"
       />
       <datalist id="task-suggestions">
-        <option value="Projecto 1" />
-        <option value="Projecto 2" />
-        <option value="Projecto 3" />
-        <option value="Banana" />
+        {Array.from(previousTasks).map(task => (
+          <option key={task} value={task} />
+        ))}
       </datalist>
       <label htmlFor="minutesAmount">durante</label>
       <MinutesAmountInput
