@@ -10,17 +10,17 @@ export function addNewCycleAction(newCycle: Cycle) {
   return {
     type: ActionTypes.ADD_NEW_CYCLE,
     payload: { newCycle },
-  };
+  } as const;
 }
 
 export function interruptCurrentCycleAction() {
   return {
     type: ActionTypes.INTERRUPT_CURRENT_CYLE,
-  };
+  } as const;
 }
 
 export function markCurrentCycleAsFinishedAction() {
   return {
     type: ActionTypes.INTERRUPT_CURRENT_CYLE,
-  };
+  } as const;
 }

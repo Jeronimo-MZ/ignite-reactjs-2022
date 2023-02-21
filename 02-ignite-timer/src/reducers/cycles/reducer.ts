@@ -15,9 +15,12 @@ type CyclesState = {
   activeCycleId: string | null;
 };
 
-export function cyclesReducer(state: CyclesState, action: any) {
-  console.log({ action });
-  console.log("HERE");
+type ActionProps =
+  | { type: ActionTypes.ADD_NEW_CYCLE; payload: { newCycle: Cycle } }
+  | { type: ActionTypes.INTERRUPT_CURRENT_CYLE }
+  | { type: ActionTypes.MARK_CURRENT_CYCLE_AS_FINISHED };
+
+export function cyclesReducer(state: CyclesState, action: ActionProps) {
   if (action.type === ActionTypes.ADD_NEW_CYCLE) {
     const { newCycle } = action.payload;
     return produce(state, draft => {
@@ -34,7 +37,9 @@ export function cyclesReducer(state: CyclesState, action: any) {
       draft.cycles[currentCycleIndex].interruptedAt = new Date();
       draft.activeCycleId = null;
     });
-  } else if (action.type === ActionTypes.MARK_CURRENT_CYCLE_AS_FINISHED) {
+  }
+
+  if (action.type === ActionTypes.MARK_CURRENT_CYCLE_AS_FINISHED) {
     return produce(state, draft => {
       draft.cycles[currentCycleIndex].finishedAt = new Date();
       draft.activeCycleId = null;
