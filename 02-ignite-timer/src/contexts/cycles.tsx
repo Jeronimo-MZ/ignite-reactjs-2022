@@ -4,7 +4,7 @@ type Cycle = {
   id: string;
   task: string;
   minutesAmount: number;
-  start: Date;
+  startedAt: Date;
   interruptedAt?: Date;
   finishedAt?: Date;
 };
@@ -12,6 +12,7 @@ type Cycle = {
 type CreateCycleData = { task: string; minutesAmount: number };
 type CyclesContextData = {
   activeCycle?: Cycle;
+  cycles: Cycle[];
   amountSecondsPassed: number;
   markCurrentCycleAsFinished: () => void;
   interruptCurrentCycle: () => void;
@@ -48,7 +49,7 @@ export const CyclesProvider = ({ children }: PropsWithChildren) => {
 
   function createNewCycle({ task, minutesAmount }: CreateCycleData) {
     const id = new Date().getTime().toString();
-    const newCycle: Cycle = { id, task, minutesAmount, start: new Date() };
+    const newCycle: Cycle = { id, task, minutesAmount, startedAt: new Date() };
     setCycles(prev => [...prev, newCycle]);
     setActiveCycleId(id);
     setAmountSecondsPassed(0);
@@ -63,6 +64,7 @@ export const CyclesProvider = ({ children }: PropsWithChildren) => {
         interruptCurrentCycle,
         createNewCycle,
         setSecondsPassed: setAmountSecondsPassed,
+        cycles,
       }}
     >
       {children}

@@ -1,6 +1,12 @@
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
+
+import { useCycles } from "@/contexts/cycles";
+
 import { HistoryContainer, HistoryList, Status } from "./styles";
 
 export function History() {
+  const { cycles } = useCycles();
   return (
     <HistoryContainer>
       <h1>Meu histórico</h1>
@@ -15,30 +21,22 @@ export function History() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Tarefa 1</td>
-              <td>25 minutos</td>
-              <td>há 2 horas</td>
-              <td>
-                <Status statusColor="green">Concluído</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa 2</td>
-              <td>25 minutos</td>
-              <td>há 2 horas</td>
-              <td>
-                <Status statusColor={"yellow"}>Em andamento</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa 3</td>
-              <td>25 minutos</td>
-              <td>há 2 horas</td>
-              <td>
-                <Status statusColor={"red"}>Interrompido</Status>
-              </td>
-            </tr>
+            {cycles.map(cycle => (
+              <tr key={cycle.id}>
+                <td>{cycle.task}</td>
+                <td>{cycle.minutesAmount} minutos</td>
+                <td>
+                  <time dateTime={cycle.startedAt.toISOString()}>
+                    {formatDistanceToNow(cycle.startedAt, { locale: ptBR, addSuffix: true })}
+                  </time>
+                </td>
+                <td>
+                  {cycle.finishedAt && <Status statusColor="green">Concluído</Status>}
+                  {cycle.interruptedAt && <Status statusColor="red">Interrompido</Status>}
+                  {!cycle.finishedAt && !cycle.interruptedAt && <Status statusColor="yellow">Em Andamento</Status>}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </HistoryList>
