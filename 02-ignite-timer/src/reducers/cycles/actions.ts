@@ -8,19 +8,19 @@ export enum ActionTypes {
 
 export function addNewCycleAction(newCycle: Cycle) {
   return {
-    action: ActionTypes.ADD_NEW_CYCLE,
-    payload: newCycle,
+    type: ActionTypes.ADD_NEW_CYCLE,
+    payload: { newCycle },
   };
 }
 
 export function interruptCurrentCycleAction() {
   return {
-    action: ActionTypes.INTERRUPT_CURRENT_CYLE,
+    type: ActionTypes.INTERRUPT_CURRENT_CYLE,
   };
 }
 
 export function markCurrentCycleAsFinishedAction() {
   return {
-    action: ActionTypes.INTERRUPT_CURRENT_CYLE,
+    type: ActionTypes.INTERRUPT_CURRENT_CYLE,
   };
 }
