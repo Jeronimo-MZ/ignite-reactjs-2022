@@ -1,11 +1,12 @@
-import * as Dialog from "@radix-ui/react-dialog";
-import { ArrowCircleDown, ArrowCircleUp, X } from "phosphor-react";
-import { Content, Overlay, NewTransactionForm, CloseButton, TransactionType, TransactionTypeButton } from "./styles";
-import * as RadioGroup from "@radix-ui/react-radio-group";
-import { z } from "zod";
-import { Controller, useForm } from "react-hook-form";
+import { TransactionsContext } from "@/hooks/use-transactions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransactions } from "@/hooks/use-transactions";
+import * as Dialog from "@radix-ui/react-dialog";
+import * as RadioGroup from "@radix-ui/react-radio-group";
+import { ArrowCircleDown, ArrowCircleUp, X } from "phosphor-react";
+import { Controller, useForm } from "react-hook-form";
+import { useContextSelector } from "use-context-selector";
+import { z } from "zod";
+import { CloseButton, Content, NewTransactionForm, Overlay, TransactionType, TransactionTypeButton } from "./styles";
 
 const newTransactionFormSchema = z.object({
   description: z.string(),
@@ -17,10 +18,10 @@ const newTransactionFormSchema = z.object({
 type NewTransactionFormData = z.infer<typeof newTransactionFormSchema>;
 
 export function NewTransactionModal() {
+  const createTransaction = useContextSelector(TransactionsContext, context => context.createTransaction);
   const { register, handleSubmit, control, reset } = useForm<NewTransactionFormData>({
     resolver: zodResolver(newTransactionFormSchema),
   });
-  const { createTransaction } = useTransactions();
   const handleCreateTransaction = async (data: NewTransactionFormData) => {
     createTransaction(data);
     reset();

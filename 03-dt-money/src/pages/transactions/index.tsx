@@ -1,13 +1,14 @@
-import { Summary } from "@/components/summary";
 import { Header } from "@/components/header";
-import { PriceHighlight, TransactionsContainer, TransactionsTable } from "./styles";
-import { SearchForm } from "./components/search-form";
-import { useTransactions } from "@/hooks/use-transactions";
-import { formatMoney } from "@/utils/format-money";
+import { Summary } from "@/components/summary";
+import { TransactionsContext } from "@/hooks/use-transactions";
 import { formatDate } from "@/utils/format-date";
+import { formatMoney } from "@/utils/format-money";
+import { useContextSelector } from "use-context-selector";
+import { SearchForm } from "./components/search-form";
+import { PriceHighlight, TransactionsContainer, TransactionsTable } from "./styles";
 
 export function Transactions() {
-  const { transactions } = useTransactions();
+  const transactions = useContextSelector(TransactionsContext, ctx => ctx.transactions);
   return (
     <>
       <Header />
