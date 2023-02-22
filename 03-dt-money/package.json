@@ -8,11 +8,13 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint src",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "server": "json-server -p 3333 -d 500 -w server.json"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-radio-group": "^1.1.1",
+    "json-server": "^0.17.1",
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
