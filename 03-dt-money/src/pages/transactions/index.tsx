@@ -17,18 +17,23 @@ export function Transactions() {
         <TransactionsTableContainer>
           <TransactionsTable>
             <tbody>
-              {transactions.map(transaction => (
-                <tr key={transaction.id}>
-                  <td>{transaction.description}</td>
-                  <td>
-                    <PriceHighlight variant={transaction.type}>
-                      {formatMoney(transaction.type === "income" ? transaction.price : -transaction.price)}
-                    </PriceHighlight>
-                  </td>
-                  <td>{transaction.category}</td>
-                  <td>{formatDate(transaction.createdAt)}</td>
-                </tr>
-              ))}
+              {transactions.map(transaction => {
+                const formattedAmount = formatMoney(
+                  transaction.type === "income" ? transaction.price : -transaction.price
+                );
+                return (
+                  <tr key={transaction.id}>
+                    <td>{transaction.description}</td>
+                    <td>
+                      <PriceHighlight variant={transaction.type} title={formattedAmount.defaultFormat}>
+                        {formattedAmount.compactFormat}
+                      </PriceHighlight>
+                    </td>
+                    <td>{transaction.category}</td>
+                    <td>{formatDate(transaction.createdAt)}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </TransactionsTable>
         </TransactionsTableContainer>

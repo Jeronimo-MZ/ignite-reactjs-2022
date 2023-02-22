@@ -8,7 +8,8 @@ export const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.75);
 `;
 export const Content = styled.div`
-  min-width: 32rem;
+  width: 100%;
+  max-width: 32rem;
   border-radius: 6px;
   padding: 2.5rem 3rem;
   background-color: ${props => props.theme["gray-800"]};
@@ -16,6 +17,10 @@ export const Content = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media screen and (max-width: 470px) {
+    max-width: calc(100% - 1rem);
+  }
 `;
 
 export const NewTransactionForm = styled.form`

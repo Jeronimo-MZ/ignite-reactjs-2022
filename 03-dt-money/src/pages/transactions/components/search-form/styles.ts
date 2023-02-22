@@ -4,6 +4,19 @@ export const SearchFormContainer = styled.form`
   display: flex;
   gap: 1rem;
 
+  @media screen and (max-width: 300px) {
+    gap: 0.5rem;
+
+    input {
+      font-size: 0.9375rem;
+    }
+
+    button,
+    input {
+      padding: 0.5rem;
+    }
+  }
+
   input {
     flex: 1;
     border-radius: 6px;
