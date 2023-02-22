@@ -2,8 +2,12 @@ import { Summary } from "@/components/summary";
 import { Header } from "@/components/header";
 import { PriceHighlight, TransactionsContainer, TransactionsTable } from "./styles";
 import { SearchForm } from "./components/search-form";
+import { useTransactions } from "@/hooks/transactions";
+import { formatMoney } from "@/utils/format-money";
+import { formatDate } from "@/utils/format-date";
 
 export function Transactions() {
+  const { transactions } = useTransactions();
   return (
     <>
       <Header />
@@ -12,22 +16,18 @@ export function Transactions() {
         <SearchForm />
         <TransactionsTable>
           <tbody>
-            <tr>
-              <td>Desenvolvimento de Site</td>
-              <td>
-                <PriceHighlight variant="income">R$ 12.000,00</PriceHighlight>
-              </td>
-              <td>Venda</td>
-              <td>13/02/2023</td>
-            </tr>
-            <tr>
-              <td>Hambúrguer</td>
-              <td>
-                <PriceHighlight variant="outcome"> - R$ 59,90 </PriceHighlight>
-              </td>
-              <td>Alimentação</td>
-              <td>14/02/2023</td>
-            </tr>
+            {transactions.map(transaction => (
+              <tr key={transaction.id}>
+                <td>{transaction.description}</td>
+                <td>
+                  <PriceHighlight variant={transaction.type}>
+                    {formatMoney(transaction.type === "income" ? transaction.price : -transaction.price)}
+                  </PriceHighlight>
+                </td>
+                <td>{transaction.category}</td>
+                <td>{formatDate(transaction.createdAt)}</td>
+              </tr>
+            ))}
           </tbody>
         </TransactionsTable>
       </TransactionsContainer>
