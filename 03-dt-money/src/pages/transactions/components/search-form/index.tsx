@@ -1,10 +1,10 @@
 import { FileSearch, MagnifyingGlass } from "phosphor-react";
 import { SearchFormContainer } from "./styles";
-import { z, z as zod } from "zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const SearchFormSchema = zod.object({
+const SearchFormSchema = z.object({
   query: z.string(),
 });
 

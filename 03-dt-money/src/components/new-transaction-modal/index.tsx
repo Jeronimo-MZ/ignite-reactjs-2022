@@ -2,8 +2,29 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowCircleDown, ArrowCircleUp, X } from "phosphor-react";
 import { Content, Overlay, NewTransactionForm, CloseButton, TransactionType, TransactionTypeButton } from "./styles";
 import * as RadioGroup from "@radix-ui/react-radio-group";
+import { z } from "zod";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const newTransactionFormSchema = z.object({
+  description: z.string(),
+  price: z.number().min(0.01),
+  category: z.string(),
+  type: z.enum(["income", "outcome"]),
+});
+
+type NewTransactionFormData = z.infer<typeof newTransactionFormSchema>;
 
 export function NewTransactionModal() {
+  const { register, handleSubmit, control } = useForm<NewTransactionFormData>({
+    resolver: zodResolver(newTransactionFormSchema),
+  });
+
+  const handleCreateTransaction = async (data: NewTransactionFormData) => {
+    console.log(data);
+    await new Promise(resolve => setTimeout(() => resolve(null), 1000));
+    console.log("done");
+  };
   return (
     <Dialog.Portal>
       <Overlay as={Dialog.Overlay} />
@@ -12,20 +33,26 @@ export function NewTransactionModal() {
         <CloseButton as={Dialog.Close} title="fechar">
           <X />
         </CloseButton>
-        <NewTransactionForm>
-          <input type="text" placeholder="Descrição" />
-          <input type="number" placeholder="Preço" />
-          <input type="text" placeholder="Categoria" />
-          <TransactionType as={RadioGroup.Root}>
-            <TransactionTypeButton as={RadioGroup.Item} type="button" variant="income" value="income">
-              <ArrowCircleUp />
-              Entrada
-            </TransactionTypeButton>
-            <TransactionTypeButton as={RadioGroup.Item} type="button" variant="outcome" value="outcome">
-              <ArrowCircleDown />
-              Saída
-            </TransactionTypeButton>
-          </TransactionType>
+        <NewTransactionForm onSubmit={handleSubmit(handleCreateTransaction)}>
+          <input type="text" placeholder="Descrição" {...register("description")} />
+          <input type="number" placeholder="Preço" {...register("price", { valueAsNumber: true })} />
+          <input type="text" placeholder="Categoria" {...register("category")} />
+          <Controller
+            control={control}
+            name="type"
+            render={({ field }) => (
+              <TransactionType as={RadioGroup.Root} onValueChange={field.onChange}>
+                <TransactionTypeButton as={RadioGroup.Item} type="button" variant="income" value="income">
+                  <ArrowCircleUp />
+                  Entrada
+                </TransactionTypeButton>
+                <TransactionTypeButton as={RadioGroup.Item} type="button" variant="outcome" value="outcome">
+                  <ArrowCircleDown />
+                  Saída
+                </TransactionTypeButton>
+              </TransactionType>
+            )}
+          />
           <button type="submit">Cadastrar</button>
         </NewTransactionForm>
       </Content>
