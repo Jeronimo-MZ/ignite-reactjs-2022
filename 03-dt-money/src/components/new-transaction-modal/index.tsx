@@ -5,6 +5,7 @@ import * as RadioGroup from "@radix-ui/react-radio-group";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTransactions } from "@/hooks/use-transactions";
 
 const newTransactionFormSchema = z.object({
   description: z.string(),
@@ -16,14 +17,13 @@ const newTransactionFormSchema = z.object({
 type NewTransactionFormData = z.infer<typeof newTransactionFormSchema>;
 
 export function NewTransactionModal() {
-  const { register, handleSubmit, control } = useForm<NewTransactionFormData>({
+  const { register, handleSubmit, control, reset } = useForm<NewTransactionFormData>({
     resolver: zodResolver(newTransactionFormSchema),
   });
-
+  const { createTransaction } = useTransactions();
   const handleCreateTransaction = async (data: NewTransactionFormData) => {
-    console.log(data);
-    await new Promise(resolve => setTimeout(() => resolve(null), 1000));
-    console.log("done");
+    createTransaction(data);
+    reset();
   };
   return (
     <Dialog.Portal>
