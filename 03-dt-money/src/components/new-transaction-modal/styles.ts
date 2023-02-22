@@ -56,6 +56,32 @@ export const NewTransactionForm = styled.form`
   }
 `;
 
+export const TransactionType = styled.div`
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 0.5rem;
+`;
+
+type TransactionTypeButtonProps = { variant: "income" | "outcome"; selected?: boolean };
+export const TransactionTypeButton = styled.button<TransactionTypeButtonProps>`
+  background-color: ${props => props.theme["gray-700"]};
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 0;
+  color: ${props => props.theme["gray-300"]};
+
+  svg {
+    font-size: 1.5rem;
+    color: ${props => props.theme[props.variant === "income" ? "green-300" : "red-300"]};
+  }
+`;
+
 export const CloseButton = styled.button`
   position: absolute;
   background: transparent;
