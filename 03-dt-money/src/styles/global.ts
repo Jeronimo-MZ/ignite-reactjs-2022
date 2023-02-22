@@ -24,4 +24,10 @@ export const GlobalSyle = createGlobalStyle`
         font-size: 1rem;
         font-weight: 700;
     }
+
+    @media (max-width: 720px) {
+    :root {
+        font-size: 87.5%;
+    }
+}
 `;

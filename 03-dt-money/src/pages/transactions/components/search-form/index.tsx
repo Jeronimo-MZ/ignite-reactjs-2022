@@ -23,7 +23,7 @@ export function SearchForm() {
       <input type="text" placeholder="Busque por transações" {...register("query")} />
       <button disabled={formState.isSubmitting}>
         <MagnifyingGlass size={20} />
-        Buscar
+        <span>Buscar</span>
       </button>
     </SearchFormContainer>
   );

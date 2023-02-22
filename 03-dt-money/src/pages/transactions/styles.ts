@@ -4,7 +4,12 @@ export const TransactionsContainer = styled.section`
   width: 100%;
   max-width: 1120px;
   margin: 4rem auto 0;
-  padding: 0 1.5rem;
+  padding: 0 1.5rem 4rem;
+`;
+
+export const TransactionsTableContainer = styled.section`
+  width: 100%;
+  overflow-x: auto;
 `;
 
 export const TransactionsTable = styled.table`
@@ -17,7 +22,7 @@ export const TransactionsTable = styled.table`
     padding: 1.25rem 2rem;
     background-color: ${props => props.theme["gray-700"]};
     font-weight: 400;
-
+    white-space: nowrap;
     :first-child {
       border-top-left-radius: 6px;
       border-bottom-left-radius: 6px;
