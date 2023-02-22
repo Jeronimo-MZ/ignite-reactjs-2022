@@ -1,5 +1,5 @@
 import { ThemeProvider } from "styled-components";
-import { TransactionsProvider } from "./hooks/transactions";
+import { TransactionsProvider } from "./hooks/use-transactions";
 import { Transactions } from "./pages/transactions";
 import { GlobalSyle } from "./styles/global";
 import { defaultTheme } from "./styles/themes/default";

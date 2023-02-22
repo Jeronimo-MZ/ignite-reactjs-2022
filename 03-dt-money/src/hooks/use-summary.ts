@@ -1,4 +1,4 @@
-import { useTransactions } from "./transactions";
+import { useTransactions } from "./use-transactions";
 
 export function useSummary() {
   const { transactions } = useTransactions();

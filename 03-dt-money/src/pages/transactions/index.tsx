@@ -2,7 +2,7 @@ import { Summary } from "@/components/summary";
 import { Header } from "@/components/header";
 import { PriceHighlight, TransactionsContainer, TransactionsTable } from "./styles";
 import { SearchForm } from "./components/search-form";
-import { useTransactions } from "@/hooks/transactions";
+import { useTransactions } from "@/hooks/use-transactions";
 import { formatMoney } from "@/utils/format-money";
 import { formatDate } from "@/utils/format-date";
 
