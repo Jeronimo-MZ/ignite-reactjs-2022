@@ -1,5 +1,5 @@
 import { api } from "@/lib/axios";
-import { PropsWithChildren, useCallback, useContext, useEffect, useState } from "react";
+import { PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { createContext, useContextSelector } from "use-context-selector";
 
 export type Transaction = {
@@ -20,7 +20,7 @@ type TransactionContextData = {
   createTransaction: (data: CreateTransactionData) => Promise<void>;
 };
 
-export const TransactionsContext = createContext({} as TransactionContextData);
+const TransactionsContext = createContext({} as TransactionContextData);
 
 export const TransactionsProvider = ({ children }: PropsWithChildren) => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -58,24 +58,18 @@ export const TransactionsProvider = ({ children }: PropsWithChildren) => {
   );
 };
 
-// export const useTransactions = (
-//   fields: Array<keyof TransactionContextData>
-// ): { [k in (typeof fields)[number]]: TransactionContextData[k] } => {
-//   return useContextSelector(TransactionsContext, context => {
-//     return fields.reduce(
-//       (acc, field) => ({
-//         ...acc,
-//         [field]: context[field],
-//       }),
-//       {}
-//     );
-//   }) as any;
-// };
+type UseTransactions = <T extends Array<keyof TransactionContextData>>(
+  fields: T
+) => { [k in T[number]]: TransactionContextData[T[number]] };
 
-// export const useTransactions = (
-//   field: keyof TransactionContextData
-// ): { [k: typeof field]: TransactionContextData[k] } => {
-//   return useContextSelector(TransactionsContext, context => {
-//     return { [field]: context[field] };
-//   });
-// };
+export const useTransactions: UseTransactions = fields => {
+  return useContextSelector(TransactionsContext, context => {
+    return fields.reduce(
+      (acc, field) => ({
+        ...acc,
+        [field]: context[field],
+      }),
+      {} as ReturnType<UseTransactions>
+    );
+  });
+};
