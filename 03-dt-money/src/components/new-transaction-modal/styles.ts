@@ -63,7 +63,7 @@ export const TransactionType = styled.div`
   margin-top: 0.5rem;
 `;
 
-type TransactionTypeButtonProps = { variant: "income" | "outcome"; selected?: boolean };
+type TransactionTypeButtonProps = { variant: "income" | "outcome" };
 export const TransactionTypeButton = styled.button<TransactionTypeButtonProps>`
   background-color: ${props => props.theme["gray-700"]};
   padding: 1rem;
@@ -75,10 +75,24 @@ export const TransactionTypeButton = styled.button<TransactionTypeButtonProps>`
   cursor: pointer;
   border: 0;
   color: ${props => props.theme["gray-300"]};
+  transition: background-color 0.2s;
 
   svg {
     font-size: 1.5rem;
-    color: ${props => props.theme[props.variant === "income" ? "green-300" : "red-300"]};
+    color: ${props => (props.variant === "income" ? props.theme["green-300"] : props.theme["red-300"])};
+  }
+
+  &[data-state="unchecked"]:hover {
+    background-color: ${props => props.theme["gray-600"]};
+  }
+
+  &[data-state="checked"] {
+    color: ${props => props.theme.white};
+    background-color: ${props => (props.variant === "income" ? props.theme["green-500"] : props.theme["red-500"])};
+
+    svg {
+      color: ${props => props.theme.white};
+    }
   }
 `;
 
