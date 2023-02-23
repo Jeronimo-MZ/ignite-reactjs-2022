@@ -1,12 +1,15 @@
 import { stripe } from "@/lib/stripe";
+import { useState } from "react";
 import {
     ImageContainer,
     ProductContainer,
     ProductDetails,
 } from "@/styles/pages/Product";
+import axios from "axios";
 import { GetStaticPaths, GetStaticProps } from "next";
+import Head from "next/head";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import Router from "next/router";
 import Stripe from "stripe";
 
 type ProductProps = {
@@ -15,28 +18,52 @@ type ProductProps = {
         name: string;
         description: string;
         price: string;
+        priceId: string;
         imageUrl: string;
     };
 };
 
 export default function Product({ product }: ProductProps) {
+    const [isCreatingCheckoutSessions, setIsCreatingCheckoutSession] =
+        useState(false);
+    async function handleBuyProduct() {
+        setIsCreatingCheckoutSession(true);
+        try {
+            const response = await axios.post("/api/checkout", {
+                priceId: product.priceId,
+            });
+            window.location.href = response.data.checkoutUrl;
+        } catch {
+            alert("Erro ao efectuar a compra");
+        }
+    }
     return (
-        <ProductContainer>
-            <ImageContainer>
-                <Image
-                    src={product.imageUrl}
-                    width={520}
-                    height={480}
-                    alt={product.name}
-                />
-            </ImageContainer>
-            <ProductDetails>
-                <h1>{product.name}</h1>
-                <span>{product.price}</span>
-                <p>{product.description}</p>
-                <button>Comprar agora</button>
-            </ProductDetails>
-        </ProductContainer>
+        <>
+            <Head>
+                <title>{`${product.name} | Ignite Shop`}</title>
+            </Head>
+            <ProductContainer>
+                <ImageContainer>
+                    <Image
+                        src={product.imageUrl}
+                        width={520}
+                        height={480}
+                        alt={product.name}
+                    />
+                </ImageContainer>
+                <ProductDetails>
+                    <h1>{product.name}</h1>
+                    <span>{product.price}</span>
+                    <p>{product.description}</p>
+                    <button
+                        disabled={isCreatingCheckoutSessions}
+                        onClick={handleBuyProduct}
+                    >
+                        Comprar agora
+                    </button>
+                </ProductDetails>
+            </ProductContainer>
+        </>
     );
 }
 
@@ -65,6 +92,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             name: response.name,
             imageUrl: response.images[0],
             description: response.description,
+            priceId: productPrice.id,
             price: Intl.NumberFormat("pt-BR", {
                 style: "currency",
                 currency: "BRL",
