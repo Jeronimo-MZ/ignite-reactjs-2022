@@ -8,7 +8,7 @@ export const HomeContainer = styled("main", {
     minHeight: 656,
 });
 
-export const Product = styled("div", {
+export const Product = styled("a", {
     background: "linear-gradient(180deg, #1ea483 0%, #7465d4 100%)",
     borderRadius: 8,
     padding: "0.25rem",
@@ -18,6 +18,7 @@ export const Product = styled("div", {
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
+    color: "$gray100",
 
     img: {
         objectFit: "contain",

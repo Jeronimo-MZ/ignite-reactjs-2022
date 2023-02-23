@@ -6,7 +6,8 @@ import { HomeContainer, Product } from "@/styles/pages/Home";
 
 import { stripe } from "@/lib/stripe";
 import "keen-slider/keen-slider.min.css";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetStaticProps } from "next";
+import Link from "next/link";
 import { Stripe } from "stripe";
 
 type HomeProps = {
@@ -32,18 +33,24 @@ export default function Home({ products }: HomeProps) {
             </Head>
             <HomeContainer ref={sliderRef} className="keen-slider">
                 {products.map((product) => (
-                    <Product className="keen-slider__slide" key={product.id}>
-                        <Image
-                            src={product.imageUrl}
-                            width={520}
-                            height={480}
-                            alt={product.name}
-                        />
-                        <footer>
-                            <strong>{product.name}</strong>
-                            <span>{product.price}</span>
-                        </footer>
-                    </Product>
+                    <Link
+                        key={product.id}
+                        href={`/product/${product.id}`}
+                        legacyBehavior
+                    >
+                        <Product className="keen-slider__slide">
+                            <Image
+                                src={product.imageUrl}
+                                width={520}
+                                height={480}
+                                alt={product.name}
+                            />
+                            <footer>
+                                <strong>{product.name}</strong>
+                                <span>{product.price}</span>
+                            </footer>
+                        </Product>
+                    </Link>
                 ))}
             </HomeContainer>
         </>
