@@ -26,3 +26,5 @@ export const Heading = styled("h2", {
     size: "md",
   },
 });
+
+Heading.displayName = "Heading";

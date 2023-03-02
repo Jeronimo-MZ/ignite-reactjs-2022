@@ -1,7 +1,7 @@
 import { ComponentProps } from "react";
 import { Label, MultiStepContainer, Step, Steps } from "./styles";
 
-export type MultiStepProps = ComponentProps<typeof MultiStepContainer> & {
+export type MultiStepProps = {
   size: number;
   currentStep?: number;
 };
@@ -20,3 +20,5 @@ export function MultiStep({ size, currentStep = 1 }: MultiStepProps) {
     </MultiStepContainer>
   );
 }
+
+MultiStep.displayName = "MultiStep";
