@@ -2,7 +2,10 @@ name: "Deploy Design System docs"
 
 on:
     push:
-        branches: [main]
+        branches:
+            - main
+        paths:
+            - '05-design-system/**'
 
 jobs:
     build-and-deploy:
