@@ -1,0 +1,2 @@
+import{A as t}from"./index-e4dfed26.js";import"./index-675047a4.js";import"./iframe-7863be87.js";import"./index-d795f683.js";import"./jsx-runtime-10c87507.js";const m={title:"Data Display/Avatar",component:t,args:{src:"https://github.com/jeronimo-mz.png",alt:"Jerónimo Matavel"}},p={},c={args:{src:""}},e=["Primary","WithFallback"];export{p as Primary,c as WithFallback,e as __namedExportsOrder,m as default};
+//# sourceMappingURL=Avatar.stories-30c590b2.js.map
