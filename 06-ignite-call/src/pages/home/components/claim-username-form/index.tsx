@@ -9,9 +9,8 @@ import { Form } from "./styles";
 const claimUsernameFormSchema = z.object({
   username: z
     .string()
-    .min(3)
-    .max(20)
-    .regex(/^[a-z\\-]+$/i)
+    .min(3, { message: "deve ter pelo menos 3 caracteres" })
+    .regex(/^[a-z]+[a-z\\-]+[a-z]+$/i, { message: "deve ter apenas letras e hífens" })
     .transform(value => value.toLowerCase()),
 });
 
