@@ -10,7 +10,4 @@ export const Form = styled(Box, {
   "@media (max-width: 600px)": {
     gridTemplateColumns: "1fr",
   },
-  [`> ${Button}`]: {
-    // gap: "$2",
-  },
 });
