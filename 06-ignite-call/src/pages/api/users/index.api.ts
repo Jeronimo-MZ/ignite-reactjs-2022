@@ -1,4 +1,5 @@
 import type { NextApiHandler } from "next";
+import { setCookie } from "nookies";
 
 import { prisma } from "@/lib/prisma";
 
@@ -14,6 +15,13 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   const user = await prisma.user.create({ data: { name, username } });
+
+  const SEVEN_DAYS_IN_SECONDS = 60 * 60 * 24 * 7;
+
+  setCookie({ res }, "@ignitecall:userId", user.id, {
+    maxAge: SEVEN_DAYS_IN_SECONDS,
+    path: "/",
+  });
 
   return res.status(201).json({ user });
 };
