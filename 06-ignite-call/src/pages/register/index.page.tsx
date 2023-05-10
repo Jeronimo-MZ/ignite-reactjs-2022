@@ -43,6 +43,7 @@ export default function Register() {
   const handlerRegister = async ({ name, username }: RegisterFormData) => {
     try {
       await api.post("/users", { name, username });
+      router.push("/register/connect-calendar");
     } catch (err) {
       if (isAxiosError(err)) {
         alert(err.response?.data.error);
